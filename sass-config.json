@@ -1,0 +1,9 @@
+{
+  "files": {
+     "include": "src/**/*.s+(a|c)ss",
+     "ignore": [
+        "src/assets/**/**",
+        "./node_modules/**/*.s+(a|c)ss"
+           ]
+  }
+}

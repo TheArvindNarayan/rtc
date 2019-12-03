@@ -1,0 +1,3 @@
+<div class="progress">
+  <div class="progress-bar" [ngClass]="{rtc_bg_Beginer: isBeginer(post?.rating) , rtc_bg_Intermediate: isIntermediate(post?.rating) , rtc_bg_Advanced: isAdvanced(post?.rating) , rtc_bg_Elite: isElite(post?.rating)}" role="progressbar" [style.width]="post?.rating*10 + '%'"></div>
+</div>

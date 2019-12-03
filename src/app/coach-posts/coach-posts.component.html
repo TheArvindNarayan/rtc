@@ -1,0 +1,64 @@
+<div class="container rtc-video-content pt-80 rtc-px-60">
+    <div class="row">
+        <div class="col-12 lds-ripple" *ngIf="!pending ||!reviewed " style="position: absolute">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 text-truncate">
+            <span class="search-title " *ngIf="searchTerm && searchTerm.length > 0  && (pending?.length > 0 || reviewed?.length > 0)">Showing Results for {{searchTerm}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 rtc-tab" *ngIf="pending?.length > 0 || reviewed?.length > 0">
+            <span (click)="togglePending()" [ngClass]="{'active': showPending}">
+                Pending
+                <span class="badge">{{pendingCount}}</span>
+            </span>
+            <span (click)="toggleReviewed()" [ngClass]="{'active': !showPending}">
+                Reviewed
+                <span class="badge">{{reviewedCount}}</span>
+            </span>
+        </div>
+    </div>
+    <div class="row justfy-even">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 rtc-card-container" *ngFor="let x of posts | search:searchTerm">
+            <div class="col-12 rtc-card p-0" (click)="selected(x)">
+              <img id="vid{{x.id}}" class="w-100" onError="this.onerror=null;this.src='/assets/img/noImg.png';"
+              src="{{x?.attachment[0].thumb_attachment_url}}" >
+              <div class="float-right time pr-3">{{ x?.duration || '00:00' }}</div>
+                <div class="col-12 rtc-pt-5" *ngIf="x.rating > 0">
+                    <div class="">
+                        <div class="col-12 align-self-center">
+                            <app-progress-bar [post]='x'></app-progress-bar>
+                        </div>
+                        <div class="col-12">
+                            <span class="rtc-h6">{{x.rating}} of 10</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 rtc-pt-5">
+                    <p class="rtc-card-title">{{ x.title | titlecase | slice:0:30 }}</p>
+                </div>
+                <div class="col-12 rtc-py-5">
+                    <div class="row m-0">
+                        <div class="col-2 rtc-circle-thumb" [style.background-image]="'url(' + getCircleImgUrl(x.profile_picture) + ')'">
+                        </div>
+                        <div class="col-10 rtc-dif">
+                            <span class="rtc-h6 text-truncate">{{ (x.user_profile.name | titlecase ) || 'none'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center m-0" *ngIf="pending?.length < 1 && reviewed?.length < 1 && allData">
+        <div class="col-12 p-0">
+            <h1>No Current Coaching Requests</h1>
+        </div>
+        <div class="col-12 pt-30">
+            <h5>Please make sure your profile is up to date and check back soon!</h5>
+        </div>
+    </div>
+</div>

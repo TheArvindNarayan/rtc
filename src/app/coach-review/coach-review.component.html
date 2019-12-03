@@ -1,0 +1,187 @@
+<div class="container-fluid rtc-video-content pb-5 pt-80 rtc-px-80">
+  <div class="row m-0">
+    <div class="col-6 full-sm p-0 mt-10" [ngClass]="[(post?.coach[0]?.comments[0]?.attachment_url || uploadedURL) ? 'col-6' : 'col-8']">
+      <div class="row rtc-cr-lp m-0">
+        <div class="col-12 p-0 max-height-vid">
+          <vg-player>
+            <vg-overlay-play class="play-pause-btn"></vg-overlay-play>
+            <vg-buffering></vg-buffering>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+            <vg-controls [vgAutohide]="true" [vgAutohideTime]="0.8">
+              <vg-play-pause></vg-play-pause>
+              <vg-playback-button></vg-playback-button>
+              <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+              <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+              <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+              <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+              <vg-track-selector></vg-track-selector>
+              <vg-mute></vg-mute>
+              <vg-volume></vg-volume>
+              <vg-fullscreen></vg-fullscreen>
+            </vg-controls>
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" src={{post?.attachment[0].attachment_url}} crossorigin>
+            </video>
+          </vg-player>
+        </div>
+        <div class="col-2 rtc-circle-thumb mt-10 p-0" [style.background-image]="'url(' + getCircleImgUrl(post?.profile_picture) + ')'">
+        </div>
+        <div class="col-10 rtc-dif mt-10 p-0">
+          <span class="rtc-h6 rtc-ml-20">{{ post?.user_profile.name }}</span>
+        </div>
+        <div class="col-12 mt-10 p-0">
+          <span class="rtc-title">{{ post?.title }}</span>
+        </div>
+        <div class="col-12 mt-10 p-0">
+          <span class="rtc-description">{{ post?.description }}</span>
+        </div>
+        <div class="col-12 mt-10 p-0">
+          <span class="rtc-timeAgo">{{ post?.created_at | amTimeAgo }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="p-0 full-sm mt-10" [ngClass]="[(uploadedURL) ? 'col-6' : 'col-4']" *ngIf="post?.status === 'pending' && post">
+      <div class="row rtc-cr-rp mr-0 rtc-ml-15">
+        <div class="rtc-video-small w-100 max-height-vid" *ngIf="AttachvideoURL.length > 0">
+          <vg-player>
+            <vg-overlay-play class="play-pause-btn"></vg-overlay-play>
+            <vg-buffering></vg-buffering>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+            <vg-controls [vgAutohide]="true" [vgAutohideTime]="0.8">
+              <vg-play-pause></vg-play-pause>
+              <vg-playback-button></vg-playback-button>
+              <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+              <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+              <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+              <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+              <vg-track-selector></vg-track-selector>
+              <vg-mute></vg-mute>
+              <vg-volume></vg-volume>
+              <vg-fullscreen></vg-fullscreen>
+            </vg-controls>
+            <video *ngIf="AttachvideoURL[1].length > 1" [vgMedia]="media" #media id="CommentsingleVideo" preload="auto" [src]="AttachvideoURL[1]" crossorigin>
+            </video>
+            <video *ngIf="!(AttachvideoURL[1].length > 1)" [vgMedia]="media" #media id="CommentsingleVideo" preload="auto" [src]="AttachvideoURL" crossorigin>
+            </video>
+          </vg-player>
+        </div>
+        <div class="col-12 p-0">
+          <span class="rtc-title">Review this video</span>
+        </div>
+        <div class="row rtc-w100pr rtc-mx-0 mt-20 text-center rtc-3px-br-l">
+          <div class="col-1 p-0 rtc-3px-br-y rtc-rating-value rtc-h-34" *ngFor="let v of ratingScale" (click)="select(v)" [ngClass]="{active: isActive(v)}">
+            {{ v.value }}
+          </div>
+          <div class="col-1 p-0 rtc-3px-br-l rtc-h-34">
+          </div>
+          <div class="col-1 p-0 rtc-h-34">
+          </div>
+        </div>
+        <div class="row rtc-w100pr rtc-mx-0 rtc-mt-5 text-center">
+          <div class="col-3 p-0">
+            <div class="rtc-Beginer rtc-text-turncate">Beginner</div>
+          </div>
+          <div class="col-4 p-0">
+            <div class="rtc-Intermediate rtc-text-turncate">Intermediate</div>
+          </div>
+          <div class="col-2 p-0">
+            <div class="rtc-Advanced rtc-text-turncate"> Advanced</div>
+          </div>
+          <div class="col-1 p-0">
+            <div class="rtc-Elite rtc-text-turncate">Elite</div>
+          </div>
+          <div class="col-1 p-0">
+          </div>
+          <div class="col-1 p-0">
+          </div>
+        </div>
+        <div class="row rtc-w100pr rtc-mt-20 rtc-mx-0">
+          <div class="col-12 p-0">
+            <span class="rtc-h6">Your review</span>
+          </div>
+          <div class="col-12 p-0 rtc-mt-5">
+            <textarea [(ngModel)]="comment" class="rtc-textarea" placeholder="Provide feedback or a demonstration via video"></textarea>
+          </div>
+          <div class="col-6 p-0 rtc-mt-20">
+            <div class="col-6 p-0">
+              <div class="file-upload">
+                <span *ngIf="!uploadedURL" data-toggle="modal" data-target="#selectModal">
+                  <i class="fa fa-paperclip"></i> Attach Video
+                </span>
+              </div>
+            </div>
+            <div *ngIf="uploadedURL" class="col-7 d-flex p-0 videoURL">
+              <i class="fa fa-paperclip"></i>
+              {{ uploadedURL | slice:0:18 }}
+            </div>
+          </div>
+          <div class="col-6 p-0 rtc-mt-20 text-right">
+            <button class="btn review-video-btn" (click)=postReview() [disabled]='disableSubmit'>
+              REVIEW VIDEO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-0 full-sm mt-10" *ngIf="post?.status != 'pending' && post" [ngClass]="[(post?.coach[0]?.comments[0]?.attachment_url) ? 'col-6' : 'col-4']">
+      <app-coach-review-card [post]='post'></app-coach-review-card>
+    </div>
+  </div>
+</div>
+<div class="col-12 loader" *ngIf="videoService.showPercent">
+  <div class="display-table w-100">
+    <div class="display-table-cell">
+      <div class="count">
+        <circle-progress [percent]="videoService.uploadPercent" [radius]="60" [outerStrokeWidth]="10" [innerStrokeWidth]="0" [outerStrokeColor]="'#78C000'"
+          [innerStrokeColor]="'#C7E596'" [animation]="false" [titleFontSize]="30" [titleColor]="'#fff'" [subtitleFontSize]="20"
+          [subtitleColor]="'#fff'" [unitsFontSize]="18" [unitsColor]="'#fff'" [animationDuration]="0"></circle-progress>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="selectModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title m-auto">Select Source</h4>
+        <button type="button" class="close" data-dismiss="modal" #closeModal>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="content">
+            <div (click)="fileUpload.click()">
+              <i class="fa fa-file-video-o fa-4" aria-hidden="true"></i>
+              <h4>Local File</h4>
+              <input (change)="uploadVideo($event); closeModal.click()" 
+              class="rtc-upload-input" 
+              type="file" accept="video/mp4,video/x-m4v,video/*" name="file"
+               #fileUpload />
+            </div>
+            <div (click)="closeModal.click()" data-toggle="modal" data-target="#hmtVideo">
+              <div class="realware-logo fa-4" aria-hidden="true"></div>
+              <h4>ReelTime Cloud</h4>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="hmtVideo" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title m-auto">Select Reeltime Cloud Video</h4>
+        <button type="button" class="close" data-dismiss="modal" #closeHMTModal>&times;</button>
+      </div>
+      <div class="modal-body hmt-body">
+        <app-hmt (videourl)="hmtUpdate($event); closeHMTModal.click()"></app-hmt>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang = "en">
+<head>
+  <meta charset="utf-8">
+  <title>Virtual Coaching Marketplace | Reel Time Coaching</title>
+  <meta name="theme-color" content="#ee0f7b">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="keywords" content="basketball coach, soccer coach, sports coach, video analysis, virtual coaching"/>  
+  <meta name="description" content="Launching in the Summer of 2018, ReelTime Coaching connects athletes with pro level coaches from organizations such as the NBA and FC Barcelona"/>
+  <meta name="canonical" content="http://www.reeltimecoaching.com/" property="canonical">
+  <meta name="viewport" content="width=device-width, initial-scale=1" property="viewport">
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.rtc-demo-cc.herokuapp.com/"/>
+  <meta name="og:title" content="Virtual Coaching Marketplace | Reel Time Coaching" property="og:title">
+  <meta name="og:description" content="Reel Time Coaching is virtual coaching marketplace launching in early 2018" property="og:description">
+  <meta name="og:image" content="https://static.wixstatic.com/media/87e44f_c87509c1334e4079bd11a0d64cc31606%7Emv2_d_1920_1440_s_2.png" property="og:image">
+  <meta property="og:site_name" content="Virtual Coaching | ReelTime Coaching"/>
+  <meta property="fb:admins" content="ReelTimeCoaching"/>  
+  <meta property="og:description" content="Launching in the Summer of 2018, ReelTime Coaching connects athletes with pro level coaches from organizations such as the NBA and FC Barcelona"/>
+  <link rel="icon" href="./favicon.ico">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <noscript>
+    Please Enable Javascript
+  </noscript>
+  <app-root>
+    <div class="col-12 lds-ripple" *ngIf="!posts" style="position: absolute">
+      <div></div>
+      <div></div>
+  </div>
+  </app-root>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey('pk_live_jelK5rKxvb33lmdGBin7f3SM');
+    // Stripe.setPublishableKey('pk_test_tkM8bQQjqqTunLfIOp5onURu'); 
+  </script>
+  <script async src="https://use.fontawesome.com/af8814df51.js"></script>
+  <script>
+     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function (registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(function (err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    }
+  </script>
+</body>
+</html>

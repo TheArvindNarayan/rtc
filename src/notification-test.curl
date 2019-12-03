@@ -1,0 +1,17 @@
+ curl -X POST --header "Authorization: key=AAAA2MFos6w:APA91bH2eZbmCt5NW11sp0SJfjHaijfZAWyr8lypGUkIJVLxo1qVxIuTrHqpHixA9FV4q4v3jN1qp1IyqIamjXh-bCej_0CX31Ica_sB4IGi1lG8ObFpRg_GZDAe82B5fuk1ybzsaT47" \
+    --Header "Content-Type: application/json" \
+    https://fcm.googleapis.com/fcm/send \
+    -d "{\"to\":\"cR4B9cjs0SY:APA91bHF35bk5Hv3nVXhkJdkkyoYVfum7nRl6LhnT3k5y4rWBSXmbAL6ntCm3dO_ocYAcYPiYocCz2tuSrpqhDgdFE2j7hY3jEG6CZ3XUE4D5zETmwipLVCgDUuuLghijusTJT8KIyJm\",\"notification\":{\"body\":\"Your Post has been reviewed\",
+    \"title\":\"Reeltime Coaching\",
+    \"icon\":\"https://app.reeltimecoaching.com/assets/icons/icon-72x72.png\",
+    \"click_action\":\"http://localhost:4200/#/auth/Login\",
+    \"sound\":\"default\"
+    },\"priority\":10}"
+
+
+/*
+replace cCn-J5NtIz8:cR4B9cjs0SY:APA91bHF35bk5Hv3nVXhkJdkkyoYVfum7nRl6LhnT3k5y4rWBSXmbAL6ntCm3dO_ocYAcYPiYocCz2tuSrpqhDgdFE2j7hY3jEG6CZ3XUE4D5zETmwipLVCgDUuuLghijusTJT8KIyJm-1_c3SaBIQOXPqTy2oquNT5X8dL91zZx3uUxp8pERT52CXWL6n3Jr3HCdEtLR4ewQ8MTDJ6i-xHqNXkjT2LXg9BSITIvFqEgoUHgvxAGNR2H1Y4
+
+with your token i.e, check console for a log from notification service
+
+/*

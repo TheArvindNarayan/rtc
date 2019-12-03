@@ -1,0 +1,45 @@
+<div class="row rtc-cr-lp m-0">
+  <div class="col-12 p-0 max-height-vid">
+    <vg-player>
+      <vg-overlay-play class="play-pause-btn"></vg-overlay-play>
+      <vg-buffering></vg-buffering>
+      <vg-scrub-bar>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
+      <vg-controls [vgAutohide]="true" [vgAutohideTime]="0.8">
+        <vg-play-pause></vg-play-pause>
+        <vg-playback-button></vg-playback-button>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+        <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+        <vg-track-selector></vg-track-selector>
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume>
+        <vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+      <video [vgMedia]="media" #media id="singleVideo" preload="auto"
+      [poster]="post?.attachment[0].thumb_attachment_url" 
+      src={{post?.attachment[0].attachment_url}} crossorigin>
+      </video>
+    </vg-player>
+  </div>
+  <div class="col-2 rtc-circle-thumb mt-10 p-0" [style.background-image]="'url(' + getCircleImgUrl(post?.profile_picture) + ')'">
+  </div>
+  <div class="col-6 rtc-dif mt-10 p-0">
+    <span class="rtc-h6 rtc-ml-20">{{ post?.user_profile.name }}</span>
+  </div>
+  <div class="col-12 mt-10 p-0">
+    <span class="rtc-detail">{{ post?.title }}</span>
+  </div>
+  <div class="col-12 mt-10 p-0">
+    <span class="rtc-description">{{ post?.description }}</span>
+  </div>
+  <div class="col-12 mt-10 p-0">
+    <span class="rtc-timeAgo">{{ post?.created_at | amTimeAgo }}</span>
+  </div>
+  <div class="col-12 mt-10 p-0" *ngIf="post?.status === 'unassigned'">
+    <a (click)="deletePost()" class="btn btn-danger float-right" >Delete Post</a>
+  </div>
+</div>

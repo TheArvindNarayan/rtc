@@ -1,0 +1,62 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded rtc-navbar">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <img src="./../../assets/img/rtcLogo.png" routerLink="/app/videos" alt="Reeltime" class="rtcLogo">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="tabs" *ngIf="role != 'coach'" routerLink="/app/videos" routerLinkActive="tab-active">
+          My Videos
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="tabs" *ngIf="role != 'coach'" routerLink="/app/coaches" routerLinkActive="tab-active">
+          Virtual Academy
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="tabs" *ngIf="role == 'coach'" routerLink="/app/inbox" routerLinkActive="tab-active">
+          Inbox
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="tabs" *ngIf="role == 'coach'" routerLink="/app/player" routerLinkActive="tab-active">
+          Player
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="!router.url.includes('playerProfile')">
+        <span class="search">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <input type="text" [(ngModel)]='searchTerm' name='search' (keyup)="search()" placeholder="Search">
+        </span>
+      </li>
+    </ul>
+    <div class="float-right">
+      <button class="btn" *ngIf="role != 'coach' && !router.url.includes('coachProfile')">
+        Upload Video
+      </button>
+      <input type="file" name="myfile" id="fileInput" onerror="this.src='/assets/img/default_profile_icon.svg'"
+       *ngIf="role != 'coach' && !router.url.includes('coachProfile')" (change)="videoUpload($event)"
+        #uploadVideo accept="video/mp4,video/x-m4v,video/mkv,video/*" />
+      <div class="dropdown">
+        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+          <img *ngIf='playerImagePath?.length > 0' src="{{playerImagePath}}"
+          onError="this.onerror=null;this.src='/assets/img/default_profile_icon.svg';" alt="{{userName}}" class="profile">
+          <img *ngIf="!(playerImagePath?.length > 0)" src="/assets/img/default_profile_icon.svg" alt="{{userName}}" class="profile">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" routerLink="/app/payment">Payment Details</a>
+          <a class="dropdown-item" routerLink="/app/paymentsummary/{{role}}">Payment Summary</a>
+          <a class="dropdown-item" routerLink="/app/userProfile">Edit Profile</a>
+          <a class="dropdown-item" *ngIf="role == 'coach'" routerLink="/app/reeltime-cloud">ReelTime Cloud</a>
+          <a class="dropdown-item" *ngIf="role == 'coach'" routerLink="/app/qrCode">QR Code</a>
+          <a class="dropdown-item" routerLink="/app/privacy">Privacy Settings</a>
+          <a class="dropdown-item" routerLink="/app/changePassword">Change Password</a>
+          <a class="dropdown-item" (click)="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

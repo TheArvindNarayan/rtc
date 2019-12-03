@@ -1,0 +1,64 @@
+<div class="container rtc-video-content pt-80 rtc-px-60">
+    <div class="row">
+      <div class="col-12 lds-ripple" *ngIf="!videos" style="position: absolute">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div class="row justify-content-start" *ngIf="videos" >
+      <h1 class="text-center w-100" *ngIf="videos.length < 1">
+        No ReelTime Cloud Videos Available</h1>
+      <div class="col-md-3 col-sm-12 rtc-card-container" *ngFor="let x of videos">
+        <div class="col-12 rtc-card p-0" (click)="selectVideo(x, $event)">
+          <img id="vid{{x.id}}" class="w-100" onError="this.onerror=null;this.src='/assets/img/noImg.png';"
+          src="{{x?.thumb_attachment_url}}" >
+          <div class="float-right time pr-3">{{ x?.duration || '00:00' }}</div>
+          <div class="col-12 rtc-pt-5">
+            <p class="rtc-card-title">{{ x.title| titlecase | slice:0:20 }}</p>
+            <button class="btn btn-danger" (click)="deletevideo(x)"> 
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button #playtrigger data-toggle="modal" data-target="#hmtVideoPlay"
+  class="d-none"></button>
+
+  <div id="hmtVideoPlay" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title m-auto">{{ selectedVideo.title }}</h4>
+            <button type="button" class="close" data-dismiss="modal" #closeHMTModal>&times;</button>
+          </div>
+          <div class="modal-body hmt-body">
+              <vg-player>
+                  <vg-overlay-play class="play-pause-btn"></vg-overlay-play>
+                  <vg-buffering></vg-buffering>
+                  <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                  </vg-scrub-bar>
+                  <vg-controls [vgAutohide]="true" [vgAutohideTime]="0.8">
+                    <vg-play-pause></vg-play-pause>
+                    <vg-playback-button></vg-playback-button>
+                    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                    <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+                    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                    <vg-track-selector></vg-track-selector>
+                    <vg-mute></vg-mute>
+                    <vg-volume></vg-volume>
+                    <vg-fullscreen></vg-fullscreen>
+                  </vg-controls>
+                  <video [vgMedia]="media" #media id="CommentsingleVideo"
+                   preload="auto" src={{selectedVideo.attachment_url}} crossorigin>
+                  </video>
+                </vg-player>
+          </div>
+        </div>
+      </div>
+    </div>

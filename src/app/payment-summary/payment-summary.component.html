@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div *ngIf="posts.length" class="pt-6 p-height">
+    <div *ngIf="(route_param == 'player')" class="total txt-center w-100">
+      <span class="total-amt">
+        {{total_amt}}
+      </span>
+      <span>
+        has been Spent totally.
+      </span>
+    </div>
+    <div *ngIf="(route_param == 'coach')" class="total txt-center w-100">
+      <span class="total-amt">
+        {{total_amt}}
+      </span>
+      <span>
+        has been Earned totally.
+      </span>
+    </div>
+    <div *ngFor="let post of posts | search:searchTerm" class="card" (click)="reDirectToPost(post?.post?.id)">
+      <div class="row m-0 p-2">
+        <div class=" rtc-circle-thumb" [style.background-image]="'url(' + getCircleImgUrl(post.attachment_url) + ')'">
+        </div>
+        <div *ngIf="(route_param == 'player')" class="col-lg-8 d-inline-block p-2 text-capitalize font-weight-bold">
+          {{post.coach.name}}
+        </div>
+        <div *ngIf="(route_param == 'coach')" class="col-lg-8 d-inline-block p-2 text-capitalize font-weight-bold">
+          {{post.player?.name}}
+        </div>
+        <div class="col-lg-3 money d-inline-block text-right p-2 font-weight-bold">
+          {{post.payment_amount}}
+        </div>
+        <div class="col-lg-12 d-inline-block p-2 text-capitalize font-weight-bold">
+          {{((post.post.title).length) > 25 ?(post.post.title | slice:0:25):post.post.title}}
+        </div>
+        <div class="d-inline-block font">
+          <p class="text-indent">
+            {{((post.post.description).length) > 100 ?(post.post.description | slice:0:100):post.post.description}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!posts.length" class="h-100 pt-6">
+    <p class="text-center p-height">No post available.</p>
+  </div>
+</div>

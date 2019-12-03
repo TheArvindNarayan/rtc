@@ -1,0 +1,88 @@
+<div class="container rtc-video-content pt-80 rtc-px-60">
+  <div class="row">
+    <div class="col-12 text-truncate">
+      <span class="search-title" *ngIf="searchTerm && coaches?.length > 0">Showing Results for {{searchTerm}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 rtc-tab" *ngIf="allCoaches?.length > 0">
+      <span (click)="toggleAll()" [ngClass]="{'active': !showFav}">
+        All Coach
+      </span>
+      <span (click)="toggleFav()" [ngClass]="{'active': showFav}">
+        Favorites
+      </span>
+    </div>
+  </div>
+  <div class="col-12" *ngIf="coaches?.length < 1 && showFav">
+    <h2> No Favourite Coaches</h2>
+  </div>
+  <div class="row">
+    <div class="col-12 lds-ripple" *ngIf="!allCoaches" style="position: absolute">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div class="row justify-content-between m-0" *ngIf="allCoaches">
+    <div [@slide-in]='animState' class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 rtc-profile-card-container p-0" *ngFor="let x of coaches | search:searchTerm">
+      <div class="row rtc-profile-card m-10" (click)="selectCoach(x)">
+        <div class="col-6 rtc-border">
+          <div class="col-12 rtc-profile-img mt-30" [style.background-image]="'url(' + getThumbImgUrl(x.attachment_url) + ')'">
+          </div>
+          <div class="col-12 mt-20 text-center">
+            <span class="amount">
+              {{x.amount || '$0'}}
+            </span>
+          </div>
+          <div class="col-12 mt-10 text-center">
+            <span class="rtc-coachName">
+              {{x.user_profile.name | titlecase}}
+            </span>
+          </div>
+          <div class="col-12 mt-10 text-center mb-20">
+            <div class="row ">
+              <img [ngClass]="{'op-0':!x.badge_url ||x.badge_url.length < 1 || x.badge_url === null }" class="col-3 rtc-circle-flag align-self-center"
+                alt="badge" src="{{x.badge_url}}" />
+              <div class="col-6 align-self-center">
+                <div class="rtc-coachCountry">
+                  {{(x.city | titlecase) || 'none'}}
+                  <br />{{x.country ? (x.country.toUpperCase()) : 'none'}}
+                </div>
+              </div>
+              <div class="col-3 align-self-center">
+                <img class="flagImg" [src]="getCountryFlag(x.country)" onError="this.onerror=null;this.src='/assets/img/noFlag.svg';" alt="{{x.country_name}}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-card col-6">
+          <div class="col-12 fix-height" id="favorite">
+            <i class="fa fa-star float-right pt-2" [ngClass]="{'rtc-pink': x.favors > 0, 'no-gold': x.favors === 0}" (click)="setFav(x, $event)"
+              aria-hidden="true"></i>
+          </div>
+          <div class="col-12 tac">
+            <span class="rtc-title">
+              ABOUT
+            </span>
+          </div>
+          <div class="col-12 tac">
+            <p class="rtc-about">
+              {{x.about || 'none'}}
+            </p>
+          </div>
+          <div class="col-12 tac rtc-stats">
+            <div class="rtc-coachStats">
+              Years of Experience: {{x.years_of_coaching + 'years' || 'none'}}
+            </div>
+            <div class="rtc-coachStats">
+              Favorite Team: {{x.fav_team || 'none'}}
+            </div>
+            <div class="rtc-coachStats">
+              Player Position: {{ x.position || 'none'}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

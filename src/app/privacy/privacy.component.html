@@ -1,0 +1,40 @@
+<div>
+  <div class="login-block-center">
+    <div class="display-table w-100 h-100">
+      <div class="display-table-cell">
+        <div class="rtc-p-30 rtc-form-container">
+          <div class="col-12 p-0">
+            <span class="rtc-title">Privacy Settings</span>
+          </div>
+          <form class="rtc-w100pr" #loginForm="ngForm">
+            <div class="col-12 row p-0">
+              <mat-slide-toggle class="example-margin" [color]="color" [(ngModel)]="checkedPush" name="push">
+              </mat-slide-toggle>
+              <h3>
+                Push Notifications
+              </h3>
+            </div>
+            <div class="col-12 row p-0">
+              <mat-slide-toggle class="example-margin" [color]="color" [(ngModel)]="checkedmail" name="mail">
+              </mat-slide-toggle>
+              <h3>
+                Emails
+              </h3>
+            </div>
+            <div class="col-12 row p-0">
+              <mat-slide-toggle class="example-margin" [color]="color" [(ngModel)]="checkedtext" name="text">
+              </mat-slide-toggle>
+              <h3>
+                Text Messages
+              </h3>
+            </div>
+            <div class="col-12 row p-0">
+              <a class="btn rtc-btn"
+              (click) = "pushChange()">Save Settings</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

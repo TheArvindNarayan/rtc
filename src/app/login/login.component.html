@@ -1,0 +1,42 @@
+<div>
+  <div class="login-block-center">
+    <div class="display-table w-100 h-100">
+      <div class="display-table-cell">
+        <div class="row rtc-p-30 rtc-form-container">
+          <div class="col-12 p-0">
+            <span class="rtc-title">Log in</span>
+          </div>
+          <form class="rtc-w100pr" (ngSubmit)="onFormSubmit(loginForm)" #loginForm="ngForm">
+            <div class="col-12 p-0">
+              <mat-form-field class="example-full-width rtc-w100pr">
+                <mat-placeholder class="">Email</mat-placeholder>
+                <input [(ngModel)]='mail' name="mail" class='' id='email' type="email" matInput required>
+              </mat-form-field>
+              <p class="err">Invalid Email</p>
+            </div>
+            <div class="col-12 p-0">
+              <mat-form-field class="example-full-width rtc-w100pr">
+                <mat-placeholder class="">Password</mat-placeholder>
+                <input [(ngModel)]='pass' name="password" class="" id='pass' #regPass matInput [type]="hide ? 'password' : 'text'" required>
+                <span class='rtc-cp' [ngClass]="hide ? 'hide-icon' : 'show-icon'" matSuffix (click)="hide = !hide"></span>
+              </mat-form-field>
+              <p class="err">Invalid Password</p>
+            </div>
+            <div class="col-12 p-0">
+              <button class="rtc-btn login-btn rtc-w100pr" [disabled]="!loginForm.form.valid" [ngClass]="{'sucess': loginForm.form.valid}">
+                Login
+              </button>
+              <button class="rtc-btn login-btn rtc-w100pr signup" routerLink="/auth/SignUp">
+                Signup
+              </button>
+            </div>
+            <div class="col-12 forgot rtc-pt-100px">
+              <span routerLink="/forgotPassword">Forgot Password</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-carousel></app-carousel>
+</div>

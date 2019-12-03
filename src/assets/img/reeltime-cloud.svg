@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 250 193" style="&#10;    background-color:  transparent;&#10;">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Real_Time_Logo);
+      }
+
+      .cls-2 {
+        fill: #f6f6f6;
+      }
+
+      .cls-3 {
+        fill: #ed177a;
+      }
+
+      .cls-4 {
+        fill: #25aae1;
+      }
+
+      .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-6 {
+        filter: url(#Path_6);
+      }
+    </style>
+    <filter id="Path_6" x="12.751" y="21.53" width="194.18" height="131.818" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.18"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-Real_Time_Logo">
+      <rect width="250" height="193"/>
+    </clipPath>
+  </defs>
+  <g id="Real_Time_Logo" data-name="Real Time Logo" class="cls-1">
+    
+    <g id="Group_21" data-name="Group 21" transform="translate(-270 10)">
+      <g id="Group_16" data-name="Group 16" transform="translate(291.751 17.53)">
+        <g class="cls-6" transform="matrix(1, 0, 0, 1, -21.75, -27.53)">
+          <path id="Path_6-2" data-name="Path 6" class="cls-2" d="M58.409,35.376c.34,0,.687.011,1.033.026a24.533,24.533,0,0,1,46.592,7.549,17.236,17.236,0,0,1,2.337.783A39.737,39.737,0,0,0,58.6-4.328a46.378,46.378,0,0,0-91.28,15.622c-.87-.071-1.749-.118-2.635-.118A31.178,31.178,0,0,0-66.5,42.356a31.181,31.181,0,0,0,30.936,31.18v.006H44.063A21.768,21.768,0,0,1,58.409,35.376" transform="translate(88.25 67.81)"/>
+        </g>
+      </g>
+      <g id="Group_18" data-name="Group 18" transform="translate(374.237 56.185)">
+        <g id="Group_1" data-name="Group 1" transform="translate(45.207 27.038)">
+          <path id="Path_1" data-name="Path 1" class="cls-3" d="M-16.973-8.487A20.013,20.013,0,0,1-36.987,11.527,20.013,20.013,0,0,1-57-8.487,20.014,20.014,0,0,1-36.987-28.5,20.014,20.014,0,0,1-16.973-8.487" transform="translate(57 28.5)"/>
+        </g>
+        <g id="Group_2" data-name="Group 2">
+          <path id="Path_2" data-name="Path 2" class="cls-4" d="M0-31.168V-84.1s.75-20.569,23.045-20.569a27.829,27.829,0,0,1,9.217,2.984L67.9-80.879s-7.988-2.137-17.117,4.593A22.992,22.992,0,0,0,42.24-63.593a24.707,24.707,0,0,0,1.345,15.859,28.08,28.08,0,0,0,4.762,6.75,27.943,27.943,0,0,0,6.188,4.366,23.252,23.252,0,0,0,6.02,2.041,24.22,24.22,0,0,0,7.695.16L32.306-13.554a21.59,21.59,0,0,1-19.677,1.112A22.589,22.589,0,0,1,1.921-23.092,21.323,21.323,0,0,1,0-31.168" transform="translate(0 104.667)"/>
+        </g>
+      </g>
+      <g id="Group_19" data-name="Group 19" transform="translate(372.545 60.002) rotate(-74)">
+        <path id="Path_7" data-name="Path 7" class="cls-4" d="M.966.031.751,0A.751.751,0,0,0,0,.75V3.49a.74.74,0,0,0,.487.69,16.309,16.309,0,0,1,9.588,9.194.731.731,0,0,0,.677.455h2.793a.755.755,0,0,0,.609-.314.747.747,0,0,0,.1-.676A20.438,20.438,0,0,0,.966.031"/>
+      </g>
+      <g id="Group_17" data-name="Group 17" transform="translate(365.242 56.94) rotate(-74)">
+        <path id="Path_8" data-name="Path 8" class="cls-3" d="M.912.015.75,0A.748.748,0,0,0,0,.747v2.7a.736.736,0,0,0,.559.712A22.98,22.98,0,0,1,17.1,20.226a.735.735,0,0,0,.7.538h2.707a.751.751,0,0,0,.726-.93A27.226,27.226,0,0,0,.912.015"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,120 @@
+<div>
+  <div class="signup-block-center">
+    <div class="display-table w-100 h-100">
+      <div class="display-table-cell">
+        <div class="row rtc-p-30 rtc-form-container">
+          <div class="col-12 p-0">
+            <span class="rtc-title">Sign Up</span>
+          </div>
+          <form
+            class="rtc-w100pr"
+            (ngSubmit)="onFormSubmit(signupForm)"
+            #signupForm="ngForm"
+          >
+            <div class="col-12 p-0">
+              <mat-form-field class="example-full-width rtc-w100pr">
+                <mat-placeholder class="">Email</mat-placeholder>
+                <input
+                  [(ngModel)]="mail"
+                  name="mail"
+                  class=""
+                  id="email"
+                  type="email"
+                  matInput
+                  required
+                />
+              </mat-form-field>
+              <p class="err">Invalid Email</p>
+            </div>
+            <div class="col-12 p-0">
+              <mat-form-field class="example-full-width rtc-w100pr">
+                <mat-placeholder class="">Password</mat-placeholder>
+                <input
+                  [(ngModel)]="pass"
+                  name="password"
+                  class=""
+                  id="pass"
+                  #regPass
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+                  required
+                />
+                <span
+                  class="rtc-cp"
+                  matSuffix
+                  (click)="hide = !hide"
+                  [ngClass]="hide ? 'hide-icon' : 'show-icon'"
+                ></span>
+              </mat-form-field>
+              <p class="err">Invalid Password</p>
+            </div>
+            <div class="col-12 p-0">
+              <button
+                class="signup rtc-btn login-btn rtc-w100pr"
+                [disabled]="!signupForm.form.valid"
+                [ngClass]="{ sucess: signupForm.form.valid }"
+              >
+                Sign Up
+              </button>
+              <button
+                class="rtc-btn login-btn rtc-w100pr login"
+                routerLink="/auth/Login"
+              >
+                Login
+              </button>
+            </div>
+            <div class="col-12 rtc-pt-40 text-center">
+              <span class="rtc-disclamer"
+                >By Signing up, you agree to Reeltime Coaching's <br />
+                <a href="https://www.reeltimecoaching.com/privacy"
+                  >Privacy Policy</a
+                >
+                and
+                <a href="https://www.reeltimecoaching.com/terms"
+                  >Terms and Conditions</a
+                ></span
+              >
+            </div>
+            <div class="col-12 rtc-pt-40 text-center">
+              <span
+                class="rtc-beCoach"
+                data-toggle="modal"
+                data-target="#beCoach"
+                >Interested in applying to be a coach on ReelTime
+                Coaching?</span
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-carousel></app-carousel>
+</div>
+<div id="beCoach" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          Interested in applying to be a coach on ReelTime Coaching?
+        </h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Please email our Director of Coaching at
+          <a
+            href="mailto:doc@reeltimecoaching.com?Subject=Application%20for%20coach%20at%20Reeltime%20Coaching"
+            target="_top"
+            >doc@reeltimecoaching.com</a
+          >
+          for more information.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

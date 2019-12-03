@@ -1,0 +1,50 @@
+<div class="container rtc-video-content pt-80 rtc-px-60">
+  <div class="row">
+    <div class="col-12 lds-ripple" *ngIf="!playerProfile" style="position: absolute">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="profileDetails" *ngIf="playerProfile">
+      <div>
+        <img src="{{getCircleImgUrl(playerProfile?.attachment_url)}}" alt="{{playerProfile?.name}}">
+      </div>
+      <div>
+        <h1 class="rtc-title">
+          {{playerProfile?.name | titlecase}}
+        </h1>
+        <span>
+          Age: {{ getAge(playerProfile) }}
+          <br /> Gender: {{ gender }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 rtc-card-container" (click)="selected(x)" *ngFor="let x of playerProfile?.posts">
+      <div class="col-12 rtc-card p-0">
+        <img id="vid{{x.id}}" class="w-100" onError="this.onerror=null;this.src='/assets/img/noImg.png';"
+        src="{{x?.attachment[0].thumb_attachment_url}}" >
+				<div class="float-right time pr-3">{{ x?.post.duration || '00:00' }}</div>
+        <div class="col-12 rtc-pt-5" *ngIf="x.post.rating > 0">
+          <div class="row">
+            <div class="col-12 align-self-center">
+              <app-progress-bar [post]='x.post'></app-progress-bar>
+            </div>
+            <div class="col-12">
+              <span class="rtc-h6">{{x?.post.rating}} of 10</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 rtc-pt-5">
+          <span class="rtc-h6"> {{x?.coach[0].status==='pending'?'Review in Progress':x?.coach[0].status}} </span>
+        </div>
+
+        <div class="col-12 rtc-pt-5">
+          <p class="rtc-card-title">{{ x?.post.title | titlecase | slice:0:30 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

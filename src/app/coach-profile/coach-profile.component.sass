@@ -1,0 +1,112 @@
+.profileContainer
+  min-height: 100vh
+  display: flex
+  justify-content: center
+  padding-top: 3em
+  .p-card
+    align-self: center
+    width: 60em
+    min-height: 30em
+    margin: 2em 0
+    background-color: #ffffff
+    border-radius: .5em
+    box-shadow: 0px 4px 8px #909090
+    display: flex
+    padding: 1em
+    div
+      width: 50%
+      display: flex
+      flex-direction: column
+      justify-content: flex-start
+      padding: 0 .5em
+    *
+      align-self: center
+    .one
+      border-right: 1.5px dashed #ccc
+      *
+        align-self: center
+        margin: .6em 0
+      .profile
+        min-height: 8em
+        width: 8em
+        border-radius: 50%
+        box-shadow: 0px 4px 8px 2px #a0a0a0
+        background-position: 50% 50%
+      span
+        display: flex
+        width: 100%
+        justify-content: space-evenly
+        flex-wrap: wrap
+
+.btn
+  border-radius: 6em
+  background-color: #da236d
+  color: white
+  font-weight: bold
+  padding: 0.5em 2em
+  box-shadow: 0px 4px 10px 0px #8a8a8aa1
+  font-size: 1.2em
+  cursor: pointer
+  transition: .25s ease-in
+
+.btn:hover, .profile:hover
+  transform: scale(1.05)
+  box-shadow: 0px 6px 10px 0px #8a8a8aa1
+
+.btn + input[type=file]
+  position: absolute
+  cursor: pointer
+  width: 15%
+  transform: translateX(-6%)
+  padding: .5em
+  opacity: 0
+
+.about
+  text-align: left
+  font-size: 16px
+  min-height: 16em
+  max-height: 20em
+  overflow-y: scroll
+  white-space: pre-line
+  width: 25em
+
+div
+    background-repeat: no-repeat
+    background-size: cover
+
+.c-title
+  width: 14em !important
+  text-align: center
+  word-wrap: break-word
+
+.stats
+  flex-direction: row !important
+  // justify-content: center !important
+  width: 25em !important
+  span
+    align-self: flex-start !important
+  span:nth-child(1)
+    text-align: right !important
+  span:nth-child(2)
+    text-align: left !important
+    max-width: 18em
+    margin-left: .3em
+
+.op-0
+  opacity: 0
+
+.amount
+  width: 20em !important
+  flex-direction: row !important
+  font-size: 1.1em !important
+  justify-content: center !important
+  p
+    span
+      display: inline !important
+      font-weight: bolder
+      color: #2ecc71
+      padding: 0 1em
+      font-size: 1.2em
+
+p.note 
+  font-size: 12px;

@@ -1,0 +1,620 @@
+<div class="videoContent">
+  <div class="container-fluid">
+    <div class="content-wrapper">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="profile-wrapper row">
+            <div class="card col-6" *ngIf="role != 'coach'">
+              <div class="card-body">
+                <div *ngIf="auth_Service.isEmpty" class="row">
+                  <div class="col-12">
+                    <input
+                      class="form-control"
+                      (keypress)="onlyAlpha($event)"
+                      type="text"
+                      placeholder="Enter Your Name as in Card"
+                      name="cardName"
+                      [(ngModel)]="cardName"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <input
+                      class="form-control"
+                      type="text"
+                      (keypress)="onlyNum($event)"
+                      maxlength="16"
+                      placeholder="Enter Your Card Number"
+                      name="cardNumber"
+                      [(ngModel)]="cardNumber"
+                    />
+                  </div>
+                  <div class="col-8 expiry">
+                    <input
+                      class="form-control"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      type="text"
+                      (keypress)="onlyNum($event)"
+                      placeholder="MM"
+                      name="month"
+                      maxlength="2"
+                      [(ngModel)]="cardDateMonth"
+                    />
+                    /
+                    <input
+                      class="form-control"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      type="text"
+                      (keypress)="onlyNum($event)"
+                      placeholder="YYYY"
+                      name="year"
+                      maxlength="4"
+                      [(ngModel)]="cardDateYear"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <input
+                      class="form-control"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      type="text"
+                      (keypress)="onlyNum($event)"
+                      placeholder="CVV"
+                      name="cvv"
+                      maxlength="3"
+                      [(ngModel)]="cardCVV"
+                    />
+                  </div>
+                  <div class="col-12 text-center">
+                    <br />
+                    <a class="btn-card" (click)="validateCard()">
+                      Save Card
+                    </a>
+                  </div>
+                </div>
+                <div *ngIf="!auth_Service.isEmpty" class="row showCard">
+                  <div class="col-12">
+                    {{ getCardData(auth_Service.cardInfo) }}
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="*****"
+                      name="cardName"
+                      readonly
+                    />
+                  </div>
+                  <div class="col-12">
+                    <input
+                      class="form-control "
+                      type="number"
+                      placeholder="*** **** **** {{
+                        auth_Service.cardInfo['data']['last4']
+                      }}"
+                      name="cardNumber"
+                      readonly
+                    />
+                    <i class="{{ stripeImg }}"></i>
+                  </div>
+                  <div class="col-8 expiry">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="**"
+                      name="month"
+                      readonly
+                    />
+                    /
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="**"
+                      name="year"
+                      readonly
+                    />
+                  </div>
+                  <div class="col-4">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="***"
+                      name="cvv"
+                      readonly
+                    />
+                  </div>
+                  <div class="col-12 text-center">
+                    <br />
+                    <a class="btn-card" (click)="auth_Service.deleteCard()">
+                      Delete Card
+                    </a>
+                  </div>
+                  <swal
+                    #delCardPop
+                    title="Delete Card Details ?"
+                    text="This cannot be undone"
+                    type="warning"
+                    [showCancelButton]="true"
+                    (confirm)="auth_Service.deleteCard()"
+                  >
+                  </swal>
+                </div>
+              </div>
+            </div>
+            <div class="card col-6" *ngIf="role === 'coach'">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <h5 class="text-center font-size-2">
+                      Enter Bank Details
+                    </h5>
+                  </div>
+                  <div class="col-12 counrty-select">
+                    <select
+                      name="Account Type"
+                      (change)="changeAcType($event.target.value)"
+                      [disabled]="showBank ? 'true' : ''"
+                      id="AcType"
+                    >
+                      <option value="null" selected disabled
+                        >Select Account Type</option
+                      >
+                      <option value="individual">Individual</option>
+                      <option value="company">Company</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <input
+                      [(ngModel)]="accountFName"
+                      (keypress)="onlyAlpha($event)"
+                      [(value)]="accountFName"
+                      placeholder="First Name of Account Holder"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <input
+                      [(ngModel)]="accountLName"
+                      (keypress)="onlyAlpha($event)"
+                      [(value)]="accountLName"
+                      placeholder="Last Name of Account Holder"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                  </div>
+                  <div class="col-12 dob">
+                    <input
+                      [min]="minDate"
+                      [max]="maxDate"
+                      (click)="picker.open()"
+                      [value]="dob"
+                      (dateInput)="dobEvent('input', $event)"
+                      (dateChange)="dobEvent('change', $event)"
+                      [disabled]="showBank ? 'true' : 'false'"
+                      class="form-control example-full-width"
+                      matInput
+                      [matDatepicker]="picker"
+                      placeholder="Date Of Birth"
+                      readonly
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker startView="year" #picker></mat-datepicker>
+                  </div>
+                  <div class="col-12 counrty-select">
+                    <select
+                      [value]="bankCountry ? bankCountry : 'default'"
+                      (change)="changeCountry($event.target.value)"
+                      [disabled]="showBank ? 'true' : ''"
+                    >
+                      <option value="default" selected disabled
+                        >Select the country of the Bank</option
+                      >
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="AU">Australia</option>
+                      <option value="JP">Japan</option>
+                      <option value="SG">Singapore</option>
+                      <option value="AT">Austria</option>
+                      <option value="BE">Belgium</option>
+                      <option value="DK">Denmark</option>
+                      <option value="FI">Finland</option>
+                      <option value="FR">France</option>
+                      <option value="DE">Germany</option>
+                      <option value="GI">Gibraltar</option>
+                      <option value="HK">Hong Kong</option>
+                      <option value="IE">Ireland</option>
+                      <option value="IT">Italy</option>
+                      <option value="LU">Luxembourg</option>
+                      <option value="NL">Netherlands</option>
+                      <option value="NO">Norway</option>
+                      <option value="PT">Portugal</option>
+                      <option value="ES">Spain</option>
+                      <option value="SE">Sweden</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="CH">Switzerland</option>
+                      <option value="NZ">New Zealand</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <input
+                      class="form-control"
+                      type="text"
+                      (keypress)="onlyAlpha($event)"
+                      [(ngModel)]="currency"
+                      [(value)]="currency"
+                      placeholder="Enter Currency"
+                      name="Currency"
+                      readonly
+                    />
+                  </div>
+                  <div class="col-12" *ngIf="bankCountry === 'US'">
+                    <input
+                      [(ngModel)]="ssn"
+                      (keypress)="onlyNum($event)"
+                      [(value)]="ssn"
+                      placeholder="SSN Account Holder"
+                      maxlength="9"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                  </div>
+                  <div class="col-12 address">
+                    <h5>Address</h5>
+                    <input
+                      [(ngModel)]="addLine1"
+                      [(value)]="addLine1"
+                      placeholder="Address First Line"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                    <input
+                      [(ngModel)]="addLine2"
+                      [(value)]="addLine2"
+                      placeholder="Address Second Line"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                    <input
+                      [(ngModel)]="city"
+                      (keypress)="onlyAlpha($event)"
+                      [(value)]="city"
+                      placeholder="City"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                    <input
+                      [(ngModel)]="state"
+                      (keypress)="onlyAlpha($event)"
+                      [(value)]="state"
+                      placeholder="State"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                    <input
+                      [(ngModel)]="pin"
+                      maxlength="12"
+                      [(value)]="pin"
+                      placeholder="Zip Code"
+                      type="text"
+                      class="form-control"
+                      [readOnly]="showBank ? 'true' : ''"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <h5 class="text-center font-size-2">Credentials</h5>
+                  </div>
+                  <div
+                    class="col-12 bankForm"
+                    *ngIf="bankCountry === 'US' || bankCountry === 'NZ'"
+                  >
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="16"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="accountNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '************' + lastNum
+                            : 'Enter Your Account number'
+                        "
+                        name="accountNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="9"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="routingNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '*********'
+                            : 'Enter Your Routing number'
+                        "
+                        name="routingNumber"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 bankForm" *ngIf="bankCountry === 'AU'">
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        minlength="6"
+                        maxlength="10"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="accountNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '******' + lastNum
+                            : 'Enter Your Account number'
+                        "
+                        name="accountNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="6"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="routingNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '******'
+                            : 'Enter Your BSB Number'
+                        "
+                        name="accountNumber"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 bankForm" *ngIf="bankCountry === 'SG'">
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="12"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="accountNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '********' + lastNum
+                            : 'Enter Your Account number'
+                        "
+                        name="accountNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="4"
+                        type="text"
+                        [(ngModel)]="bankCode"
+                        [placeholder]="
+                          lastNum && showBank ? '****' : 'Enter Your Bank Code'
+                        "
+                        name="bankCode"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="3"
+                        type="text"
+                        [(ngModel)]="branchCode"
+                        [placeholder]="
+                          lastNum && showBank ? '***' : 'Enter Your Branch Code'
+                        "
+                        name="branchCode"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 bankForm" *ngIf="bankCountry === 'JP'">
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="8"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="accountNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '****' + lastNum
+                            : 'Enter Your Account number'
+                        "
+                        name="accountNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="4"
+                        type="text"
+                        [(ngModel)]="bankCode"
+                        [placeholder]="
+                          lastNum && showBank ? '****' : 'Enter Your Bank Code'
+                        "
+                        name="bankCode"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="3"
+                        type="text"
+                        [(ngModel)]="branchCode"
+                        [placeholder]="
+                          lastNum && showBank ? '***' : 'Enter Your Branch Code'
+                        "
+                        name="branchCode"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        type="text"
+                        [(ngModel)]="acName"
+                        (keypress)="onlyAlpha($event)"
+                        placeholder="Enter Your Account Holders Name"
+                        name="acName"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 bankForm" *ngIf="bankCountry === 'CA'">
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="16"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="accountNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '************' + lastNum
+                            : 'Enter Your Account number'
+                        "
+                        name="accountNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="5"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="transitNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '****'
+                            : 'Enter Your Transit number'
+                        "
+                        name="transitNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="3"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="institutionNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '****'
+                            : 'Enter Your Institution number'
+                        "
+                        name="institutionNumber"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 bankForm" *ngIf="bankCountry === 'HK'">
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="9"
+                        type="text"
+                        (keypress)="onlyNum($event)"
+                        [(ngModel)]="accountNumber"
+                        placeholder="(lastNum && showBank)  ? ('*****' + lastNum ) : 'Enter Your Account number'"
+                        name="accountNumber"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="3"
+                        type="text"
+                        [(ngModel)]="clearingCode"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '***'
+                            : 'Enter Your Clearing Code'
+                        "
+                        name="clearingCode"
+                      />
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="3"
+                        type="text"
+                        [(ngModel)]="branchCode"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '****'
+                            : 'Enter Your Branch Code number'
+                        "
+                        name="branchCode"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 bankForm"
+                    *ngIf="
+                      bankCountry === 'AT' ||
+                      bankCountry === 'BE' ||
+                      bankCountry === 'DK' ||
+                      bankCountry === 'FI' ||
+                      bankCountry === 'FR' ||
+                      bankCountry === 'DE' ||
+                      bankCountry === 'GI' ||
+                      bankCountry === 'IE' ||
+                      bankCountry === 'IT' ||
+                      bankCountry === 'LU' ||
+                      bankCountry === 'NL' ||
+                      bankCountry === 'NO' ||
+                      bankCountry === 'PT' ||
+                      bankCountry === 'ES' ||
+                      bankCountry === 'SE' ||
+                      bankCountry === 'CH' ||
+                      bankCountry === 'GB'
+                    "
+                  >
+                    <div class="col-12">
+                      <input
+                        class="form-control"
+                        [disabled]="disable"
+                        maxlength="34"
+                        type="text"
+                        [(ngModel)]="accountNumber"
+                        [placeholder]="
+                          lastNum && showBank
+                            ? '**********' + lastNum
+                            : 'Enter Your Account number'
+                        "
+                        name="accountNumber"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-12 text-center">
+                    <br />
+                    <a class="btn-card" *ngIf="!showBank" (click)="saveBank()">
+                      Save Account Details
+                    </a>
+                  </div>
+                  <div class="col-12 text-center">
+                    <br />
+                    <a class="btn-card" *ngIf="showBank" [swal]="delBankPop">
+                      Delete Account Details
+                    </a>
+                  </div>
+                  <swal
+                    #delBankPop
+                    title="Delete Bank Details ?"
+                    text="This cannot be undone"
+                    type="warning"
+                    [showCancelButton]="true"
+                    (confirm)="deleteBank()"
+                  >
+                  </swal>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

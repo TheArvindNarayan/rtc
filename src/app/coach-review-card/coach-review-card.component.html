@@ -1,0 +1,60 @@
+<div class="row rtc-cr-rp mr-0 rtc-ml-15">
+  <div class="rtc-video-small w-100 max-height-vid" *ngIf="post?.coach[0]?.comments[0]?.attachment_url">
+    <vg-player>
+      <vg-overlay-play class="play-pause-btn"></vg-overlay-play>
+      <vg-buffering></vg-buffering>
+      <vg-scrub-bar>
+        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+      </vg-scrub-bar>
+      <vg-controls [vgAutohide]="true" [vgAutohideTime]="0.8">
+        <vg-play-pause></vg-play-pause>
+        <vg-playback-button></vg-playback-button>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+        <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+        <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+        <vg-track-selector></vg-track-selector>
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume>
+        <vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+      <video [vgMedia]="media" #media id="singleVideo" preload="auto" src={{post?.coach[0]?.comments[0]?.attachment_url}} crossorigin>
+      </video>
+    </vg-player>
+  </div>
+  <div class="col-12 p-0">
+    <span class="rtc-title">Post has been reviewed</span>
+  </div>
+  <div class="col-3 rtc-circle-thumb-58 rtc-mt-20 p-0" [style.background-image]="'url(' + getCircleImgUrl(post?.coach[0]?.profile_picture) + ')'">
+  </div>
+  <div class="col-9 p-0 rtc-mt-20">
+    <div class="row rtc-mx-0 rtc-ml-20">
+      <div class="col-12 p-0">
+        <span class="rtc-name rtc-ml-20">{{post?.coach[0]?.name | titlecase}}</span>
+      </div>
+      <div class="col-12 p-0 rtc-mt-10">
+        <div class="row m-0">
+          <div class="col-6 align-self-center">
+            <span class="rtc-coachCountry">
+              {{(post?.coach[0]?.city | titlecase) || 'none'}}, {{post?.coach[0]?.country || 'none'}}
+            </span>
+          </div>
+          <div class="col-3 p-0 rtc-circle-flag-small">
+            <img class="flagImg" [src]="getCountryFlag(post?.coach[0].country )" onError="this.onerror=null;this.src='/assets/img/noFlag.svg';"
+              alt="{{post?.coach[0]?.country}}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-7 align-self-center rtc-mt-20 p-0">
+    <app-progress-bar [post]='post'></app-progress-bar>
+  </div>
+  <div class="col-5 align-self-center rtc-mt-20 p-0">
+    <span class="rtc-h6 ml-5">{{post?.rating}} of 10</span>
+  </div>
+  <div class="col-12 rtc-border-top rtc-px-0 rtc-mt-20">
+    <p class="rtc-description rtc-mt-20">{{post?.coach[0]?.comments[0].description}}</p>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="videoContent">
+  <div *ngIf="!player" style="position: absolute" class="lds-ripple">
+    <div></div>
+    <div></div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <h3 *ngIf="searchTerm && player?.length > 0" class=" text-truncate">Showing Results for {{searchTerm}}</h3>
+      <h3 *ngIf="searchTerm && player?.length < 1 ">
+        No Results are Available
+      </h3>
+      <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12" (click)="selectPlayer(x)" *ngFor="let x of player | search:searchTerm">
+          <div class="players-card">
+            <div class="card">
+              <img class="card-img-top" onError="this.onerror=null;this.src='/assets/img/default_profile_icon.svg';" [alt]= "x?.user_profile.name"
+                src={{getThumbImgUrl(x?.attachment_url)}}>
+              <div class="card-body">
+                <h5 class="card-title">{{x?.user_profile.name | titlecase}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 *ngIf="player?.length < 1">
+          No Players are Available at the Moment
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>

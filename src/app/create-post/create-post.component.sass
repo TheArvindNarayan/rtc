@@ -1,0 +1,161 @@
+.videoContent
+  min-height: 100vh
+  background-color: #f1f0f0
+  padding-top: 5.8em
+
+.content-wrapper
+	margin: 0 4em
+	padding: 10px 0
+	a
+			text-decoration: none
+	.card
+		padding: 10px
+		box-shadow: 0 4px 10px #b1b1b1
+		.card-body
+			position: relative 
+			.updated
+				color: #a1a1a1
+				font-size: 12px
+			.card-title
+				color: #515151
+				margin: 15px 0
+			.player-detail
+				margin-top: 15px
+				.profile-pic
+					// border-radius: 100%
+					height: 40px
+					width: 40px
+				h6
+					font-size: 16px
+					color: #a1a1a1
+			.video-description
+				font-size: 14px
+				color: #a1a1a1
+			.paly-time
+				position: absolute
+				top: -40px
+				right: 10px
+				padding: 3px 10px
+				background: rgba(0,0,0,0.8)
+				color: #cccccc
+				border-radius: 8px
+				font-size: 12px	
+	
+	.describe-video
+		.card
+			box-shadow: 0 4px 10px #b1b1b1
+			.card-body
+				h6
+					font-size: 12px
+					text-transform: uppercase
+					font-weight: bold
+					letter-spacing: 1px
+			.form-control
+				border: none
+				border-bottom: 1.5px solid #cccccc
+				border-radius: 0px
+				color: #222222
+				font-size: 22px
+				font-size: bold
+			textarea
+				min-height: 150px
+				margin-top: 20px
+				width: 100%
+				max-height: 250px
+				resize: vertical
+				border: 1px solid #cccccc
+				border-radius: .7em
+				border-width: 1.5px
+				height: 18em
+				font-size: 14px
+				padding: 5px
+				resize: none
+			.btn
+				margin-top: 10px
+				border-radius: 6em
+				background-color: #da236d
+				color: white
+				font-weight: bold
+				padding: 0.7em 2em
+				box-shadow: 0px 4px 10px 0px #8a8a8aa1
+				font-size: 12px
+				letter-spacing: 1px
+
+.waiting
+	text-align: center
+	margin: 40vh 0
+
+.card:hover
+	box-shadow: 0 6px 12px #737373 !important
+
+.card
+	transition: .35s ease-in
+
+input:focus
+	border-bottom-color: #26ace2 !important
+
+
+.overlay
+	position: fixed
+	width: 100vw
+	height: 100%
+	background-color: #0000006b
+	top: 0
+	left: 0
+	.confirmPayment
+		width: 14em
+		height: 10em
+		position: absolute
+		top: 50vh
+		left: 50vw
+		transform: translate(-50%,-50%)
+		background-color: #ffffff
+		display: flex
+		flex-direction: column
+		justify-content: space-evenly
+		border-radius: 1em
+		padding: 1em
+		width: 25em
+		height: 11em
+		span
+			font-size: 1.3em
+
+.coupon
+  margin: 0 1em
+  padding-bottom: 1rem
+  i
+    transform: translateX(30px)
+  input
+    border-radius: 2em
+    outline: none
+    background-color: #f6f5f5
+    border: 1px solid transparent
+    color: #3d3d3d
+    padding: .3em 2.3em
+    transition: .35s ease-out
+  input::placeholder
+    color: #a7a7a7
+
+.display-table
+    display: table
+    height: 100vh
+
+.display-table-cell
+    display: table-cell
+    vertical-align: middle
+    text-align: center
+
+.textSize
+    font-size: 0.5em
+    letter-spacing: 5px
+
+.loader
+	background-color: rgba(0,0,0,0.68)
+	left: 0
+	bottom: 0
+	position: fixed
+	right: 0
+	top: 0
+	width: 100%
+	z-index: 400
+

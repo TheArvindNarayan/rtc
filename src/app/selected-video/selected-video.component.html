@@ -1,0 +1,107 @@
+<div class="videoContent">
+  <div class="container-fluid">
+    <div class="content-wrapper">
+      <div class="row m-0">
+        <div class="full-sm" [ngClass]="[(post?.coach[0]?.comments[0]?.attachment_url) ? 'col-6' : 'col-8']">
+          <app-vod-card [post]='post'></app-vod-card>
+          <div class="round-img">
+          </div>
+        </div>
+        <div class="col-4 col-md-4 full-sm" *ngIf="(!post?.coach[0] && post && post?.status === 'unassigned')||
+        (post && post?.status === 'pending')">
+          <div class="row m-0 rtc-rec-coaches rtc-p-10" *ngIf="!post?.coach[0] && post && post?.status === 'unassigned'">
+            <div class="col-12 p-0">
+              <span class="rtc-title rtc-mt-10">RECOMMENDED COACHES</span>
+            </div>
+            <div class="col-12 p-0 rtc-mt-10 recomended-coach" (click)="selectCoach(x)" *ngFor="let x of coaches | slice:0:5;">
+              <div class="row bdr-elm m-0">
+                <div class="col-3 rtc-circle-thumb-58 p-0" [style.background-image]="'url(' + getCircleImgUrl(x.thumb_attachment_url) + ')'">
+                </div>
+                <div class="col-9 p-0">
+                  <div class="row rtc-mx-0 rtc-ml-15">
+                    <div class="col-8 p-0 text-centre text-truncate">
+                      <span class="rtc-name">{{x.user_profile.name | titlecase}}</span>
+                    </div>
+                    <div class="col-4 amount text-truncate">
+                      {{x.amount}}
+                    </div>
+                    <div class="col-10 p-0 rtc-mt-10">
+                      <div class="row m-0">
+                        <div [ngClass]="x.badge_url?'':'nb-disp'">
+                          <img class="mh-18" [src]="getBadgeUrl(x.badge_url)">
+                        </div>
+                        <div class="col-8 text-center">
+                          <span class="rtc-coachCountry">
+                            {{(x.state | slice:0:20) || 'none'}}, {{(x.country | slice:0:20) || 'none'}}
+                          </span>
+                        </div>
+                        <div class="">
+                          <img class="mh-18" [src]="getCountryFlag(x.country)" onError="this.onerror=null;this.src='/assets/img/noFlag.svg';" alt="{{x.country}}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 p-0 rtc-mt-30">
+              <a class="btn showAll" data-toggle="modal" data-target="#allCoaches">
+                BROWSE ALL COACHES
+              </a>
+            </div>
+          </div>
+          <div *ngIf="post && post?.status === 'pending'">
+            <div class="row m-0 rtc-rec-coaches rtc-p-10">
+              <div class="col-12 p-0">
+                <span class="rtc-title rtc-mt-10">SELECTED COACH</span>
+              </div>
+              <div class="col-12 p-0 rtc-mt-10 recomended-coach">
+                <div class="row m-0">
+                  <div class="col-3 rtc-circle-thumb-58 rtc-mt-20 p-0" [style.background-image]="'url(' + getCircleImgUrl(post?.coach[0].profile_picture) + ')'">
+                  </div>
+                  <div class="col-9 p-0 rtc-mt-20">
+                    <div class="row rtc-mx-0 rtc-ml-15">
+                      <div class="col-10 p-0">
+                        <span class="rtc-name rtc-ml-20">{{post?.coach[0].name | titlecase}}</span>
+                      </div>
+                      <div class="col-12 p-0 rtc-mt-10">
+                        <div class="row m-0">
+                          <div *ngIf="post?.coach[0].profile_picture.badge_url">
+                            <img class="mh-30" [src]="getBadgeUrl(post?.coach[0].profile_picture.badge_url)">
+                          </div>
+                          <div class="col-8 align-self-center">
+                            <span class="rtc-coachCountry">
+                              {{(post?.coach[0].state | slice:0:20) || 'none'}}, {{(post?.coach[0].country | slice:0:20) || 'none'}}
+                            </span>
+                          </div>
+                          <div class="">
+                            <img class="mh-18" [src]="getCountryFlag(post?.coach[0].country)" onError="this.onerror=null;this.src='/assets/img/noFlag.svg';"
+                              alt="{{post?.coach[0].country}}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="full-sm" *ngIf="post?.rating > 0" [ngClass]="[(post?.coach[0]?.comments[0]?.attachment_url) ? 'col-6' : 'col-4']">
+          <app-coach-review-card [post]='post'></app-coach-review-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="allCoaches" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="closeBtn">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <app-coaches class="allCoachCmp" [id]='id'></app-coaches>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+// sass-lint:disable-all 
+
+//Set a rem font size with pixel fallback 
+//usage +font-size(14px)
+
+@function calculaterem($size)
+  $remsize: $size / 16px
+
+  @return $remsize * 1rem
+
+=font-size($size)
+  font-size: $size
+  font-size: calculaterem($size)
+
+//Breakpoints 
+//usage +bp-small
+
+=bp-large
+  @media only screen and (max-width: 60em)
+    @content
+
+=bp-medium
+  @media only screen and (max-width: 40em)
+    @content
+
+=bp-small
+  @media only screen and (max-width: 30em)
+    @content
+
+//Animations and keyframes
+//usage  +animation("slide-down 5s 3"),+keyframes(slide-down)
+
+=keyframes($animation-name)
+  @-webkit-keyframes #{$animation-name}
+    @content
+
+  @-moz-keyframes #{$animation-name}
+    @content
+
+  @-ms-keyframes #{$animation-name}
+    @content
+
+  @-o-keyframes #{$animation-name}
+    @content
+
+  @keyframes #{$animation-name}
+    @content
+
+=animation($str)
+  -webkit-animation: #{$str}
+  -moz-animation: #{$str}
+  -ms-animation: #{$str}
+  -o-animation: #{$str}
+  animation: #{$str}
+
+//Transitions
+//usage +transition(color 0.3s ease)
+
+=transition($args...)
+  -webkit-transition: $args
+  -moz-transition: $args
+  -ms-transition: $args
+  -o-transition: $args
+  transition: $args
+
+//Cross browser opacity
+//usage +opacity(0.8)
+
+=opacity($opacity)
+  opacity: $opacity
+
+  $opacity-ie: $opacity * 100
+
+  filter: alpha(opacity = $opacity-ie)
+
+//Centering
+//usage +centre(both | horizontal | vertical)
+
+=center($direction: both)
+  position: absolute
+
+  @if $direction == both
+    top: 50%
+    left: 50%
+    -webkit-transform: translate3d(-50%, -50%, 0)
+    transform: translate3d(-50%, -50%, 0)
+  @else if $direction == horizontal
+    left: 50%
+    -webkit-transform: translate3d(-50%, 0, 0)
+    transform: translate3d(-50%, 0, 0)
+  @else if $direction == vertical
+    top: 50%
+    -webkit-transform: translate3d(0, -50%, 0)
+    transform: translate3d(0, -50%, 0)
+
+// Quick Gradients
+// useage +background-gradient(red, black, "vertical")
+
+=background-gradient($start-color, $end-color, $orientation)
+  background: $start-color
+
+  @if $orientation == "vertical"
+    background: -webkit-linear-gradient(top, $start-color, $end-color)
+    background: linear-gradient(to bottom, $start-color, $end-color)
+  @else if $orientation == "horizontal"
+    background: -webkit-linear-gradient(left, $start-color, $end-color)
+    background: linear-gradient(to right, $start-color, $end-color)
+  @else
+    background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color)
+    background: radial-gradient(ellipse at center, $start-color, $end-color)
+
+// sass-lint:enable-all
+//End of Mixins

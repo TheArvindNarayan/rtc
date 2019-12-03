@@ -1,0 +1,62 @@
+<div>
+  <div class="login-block-center">
+    <div class="display-table w-100 h-100">
+      <div class="display-table-cell">
+        <div class="row rtc-p-30 rtc-form-container">
+          <div class="col-12 p-0 fl-bx">
+            <span class="rtc-title">Checkout</span>
+          </div>
+          <div class="col-12 coach-details">
+            <img src="{{coach?.attachment_url}}" onError="this.onerror=null;this.src='/assets/img/default_profile_icon.svg';">
+            <span>
+              {{coach?.name | titlecase}}
+            </span>
+          </div>
+          <div class="col-12 sub-total">
+            <span class="sub-title">Virtual Coaching Session
+            </span>
+            <span class="amount">
+              &nbsp;{{coachAmount}}&nbsp;
+            </span>
+          </div>
+          <div class="col-12 sub-total" *ngIf="discountAmount">
+            <span class="sub-title">Discount
+            </span>
+            <span class="amount discount">
+              &nbsp;- {{discountAmount}}&nbsp;
+            </span>
+          </div>
+          <div class="col-12 coupon">
+            <input type="text" placeholder="Enter Voucher" [(ngModel)]="couponcode" required/>
+            <button class="btn btn-outline-success" (click)="couponApply()">
+              Apply
+            </button>
+          </div>
+          <div class="col-12 total">
+            <span class="total-text">
+              Grand Total
+            </span>
+            <span class="amount gt">
+              &nbsp;{{grandTotal}}&nbsp;
+            </span>
+          </div>
+          <div class="col-12 cta">
+            <a (click)="cancel()" class="cancel">Cancel</a>
+            <button class="btn btn-success" (click)="selectCoach()" [disabled]='diablesubmit'>
+              Submit Order
+            </button>
+          </div>
+          <swal #successSwal title="Select Coach Success" text="You have successfully Selected {{ coach?.name  }} as the coach proceed further?"
+            type="success" [allowOutsideClick]='false' [focusCancel]="false" (confirm)=routeTo()>
+          </swal>
+          <swal #failSwal title="Select Coach Failure" text="Your Selection For {{ coach?.name  }} as the coach has failed" type="error"
+            [allowOutsideClick]='false' [focusCancel]="false" (confirm)=routeTo()>
+          </swal>
+          <swal #warnSwal title="Want to go back ?" text="Your Selection For {{ coach?.name  }} will be cancelled" type="question"
+            [showCancelButton]="true" [allowOutsideClick]='false' [focusCancel]="false" (confirm)=cancel()>
+          </swal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

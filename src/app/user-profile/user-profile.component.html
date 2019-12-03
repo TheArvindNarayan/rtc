@@ -1,0 +1,105 @@
+<div class="videoContent">
+  <div class="container-fluid">
+    <div class="content-wrapper">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="profile-wrapper row">
+            <div class="card col-6">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h5 class="title">Welcome to ReelTime Coaching!</h5>
+                    <h6>
+                      Let's personalize your experience
+                    </h6>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12 profile-pic">
+                    <div>
+                      <div class="img-fluid" [style.background-image]="'url(' + getThumbImgUrl(playerImagePath) + ')'" [ngClass]="{'photoLoading':photoUploadStatus === 'uploading'}">
+                      </div>
+                    </div>
+                    <div class="file-upload">
+                      <h6>
+                        <i class="fa fa-plus"></i>
+                      </h6>
+                      <input (change)="onFileChange($event)" accept="image/*" class="upload-input" type="file" name="file" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12 qr-code">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <br>
+                    <input [(ngModel)]="playerName" [(value)]="playerName" (keypress)="onlyAlpha($event)" placeholder="Your Name" type="text"
+                      class="form-control">
+                  </div>
+                  <div class="col-md-12 dob">
+                    <mat-form-field class="col-md-12 p-0 mat">
+                      <input [min]="minDate" [max]="maxDate" (click)="picker.open()" [value]="dob" (dateInput)="dobEvent('input', $event)" (dateChange)="dobEvent('change', $event)"
+                        matInput [matDatepicker]="picker" placeholder="Date of Birth" readonly>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker startView="year" #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12" *ngIf="role !== 'coach'">
+                    <div class="categories-selected">
+                      <angular2-multiselect [data]="itemList" (click)="checkClick()" [(ngModel)]="selectedItems" [settings]="settings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                      </angular2-multiselect>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <select [(ngModel)]="playerGender" id="gender" class="form-control">
+                      <option [ngValue]="" disabled>Select Your Gender</option>
+                      <option [ngValue]="'female'">Female</option>
+                      <option [ngValue]="'male'">Male</option>
+                      <option [ngValue]="'Others'">Others</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <select [(ngModel)]="country" (change)="updatePhoneCode($event.target.value)" ([value])="country" class="form-control">
+                      <option value="" selected disabled>Select your Country</option>
+                      <option *ngFor="let country of countryList" value="{{country.alpha2Code}}">{{country.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-12 phone">
+                    <span>{{phoneCode}}</span>
+                    <input [(ngModel)]="phoneNumber" [(value)]="phoneNumber" placeholder="Phone Number" type="tel" (keypress)="onlyNum($event)"
+                      class="form-control" [minlength]="8" [maxlength]="13">
+                  </div>
+                  <div class="col-12 coach-only" *ngIf="role === 'coach'">
+                    <div class="col-12">
+                      <input [(ngModel)]="state" [(value)]="state" (keypress)="onlyAlpha($event)" placeholder="State" type="text" class="form-control">
+                    </div>
+                    <div class="col-12">
+                      <input [(ngModel)]="city" [(value)]="city" (keypress)="onlyAlpha($event)" placeholder="City" type="text" class="form-control">
+                    </div>
+                    <div class="col-12">
+                      <textarea [(ngModel)]="about" [(value)]="about" placeholder="about" type="text" class="form-control">
+                      </textarea>
+                    </div>
+                    <div class="col-12">
+                      <input [(ngModel)]="fav_team" [(value)]="fav_team" placeholder="favourite team" type="text" class="form-control">
+                    </div>
+                    <div class="col-12">
+                      <input [(ngModel)]="position" [(value)]="position" placeholder="position" type="text" class="form-control">
+                    </div>
+                    <div class="col-12">
+                      <input [(ngModel)]="experience" [(value)]="experience" placeholder="experience in years" type="number" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <button class="btn" (click)="updateProfile()">
+                      <img class="btn-fluid" src="assets/img/right-arrow.png" alt="">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+nav
+  background-color: #ffffff
+  box-shadow: 0px 6px 10px #84848473
+  position: fixed
+  width: 100vw
+  color: #a1a1a1
+  z-index: 201
+
+.rtcLogo
+  width: 8em
+  margin: auto 0
+  cursor: pointer
+
+.navContent
+  margin: 0 4em
+  ul
+    display: inline
+    list-style: none
+    li
+      display: inline
+
+.tabs
+  padding: 1.1em .25em
+  margin: 0 1.5em
+
+// sass-lint:disable-all 
+
+.tab-active
+  border-bottom: 3px solid #3ca2ce
+  color: #3d3d3d !important
+
+.float-right > button
+  padding: .7em 2em
+
+.float-right
+  margin: .5em 0
+  display: inline-flex
+
+.btn
+  border-radius: 6em
+  background-color: #da236d
+  color: white
+  font-weight: bold
+  padding: 0.5em 2em
+  box-shadow: 0px 4px 10px 0px #8a8a8aa1
+  font-size: .9em
+  cursor: pointer
+  transition: .25s ease-in
+
+.btn:hover, .profile:hover
+  transform: scale(1.05)
+  box-shadow: 0px 6px 10px 0px #8a8a8aa1
+
+.profile
+  width: 2.5em
+  height: 2.5em
+  border-radius: 50%
+  margin: 0 2em
+  margin-right: 0
+  cursor: pointer
+  transition: .25s ease-in
+
+a:hover
+  text-decoration: none
+a
+  color: inherit
+  text-decoration: none
+
+.btn + input[type=file]
+  position: absolute
+  cursor: pointer
+  width: 15%
+  transform: translateX(-10%)
+  padding: .5em
+  opacity: 0
+
+.dropdown
+  cursor: pointer
+  .dropdown-toggle
+    background-color: transparent
+    color: #333333
+    font-weight: 500
+    letter-spacing: 1px
+    text-transform: capitalize
+    -webkit-appearance: none
+    -moz-appearance: none
+    appearance: none
+  .dropdown-menu
+    position: absolute
+    left: -50px
+
+.dropdown-toggle::after
+  color: #da246c
+
+.search
+  margin: 0 1em
+  i
+    transform: translateX(30px)
+  input
+    border-radius: 2em
+    outline: none
+    background-color: #f6f5f5
+    border: 1px solid transparent
+    color: #3d3d3d
+    padding: .3em 2.3em
+    transition: .35s ease-out
+  input::placeholder
+    color: #a7a7a7
+
+input:focus
+  border: 2px solid #26ace2 !important
+
+.nav-item
+  display: flex
+
+span.search > * , .dropdown > *
+  margin-top: .75em

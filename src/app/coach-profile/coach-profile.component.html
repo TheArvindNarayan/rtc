@@ -1,0 +1,75 @@
+<div class="profileContainer">
+  <div class="row">
+    <div class="col-12 lds-ripple" *ngIf="!coachProfile" style="position: absolute">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div class="p-card" *ngIf="coachProfile">
+    <div class="one">
+      <div class="col-12 profile" [style.background-image]="'url(' + getThumbImgUrl(coachProfile?.attachment_url) + ')'">
+      </div>
+      <h2 title="{{coachProfile?.name | titlecase}}" class="rtc-title w-50 c-title">
+        {{coachProfile?.name | titlecase}}
+      </h2>
+      <h4>
+        {{coachProfile?.city || 'none'}},{{coachProfile?.country || 'none'}}
+      </h4>
+      <span>
+        <img class="flagImg" [src]="getCountryFlag(coachProfile?.country)" onError="this.onerror=null;this.src='/assets/img/noFlag.svg';"
+          alt="{{coachProfile?.country}}">
+        <img class="rtc-circle-flag" [ngClass]="{'op-0':!coachProfile.badge_url ||coachProfile.badge_url.length < 1 || coachProfile.badge_url === null }"
+          src="{{getBadgeUrl(coachProfile?.badge_url)}}" alt="country">
+      </span>
+      <div class="amount">
+        <p>
+         Virtual Coaching Session Fee: 
+         <span>
+          {{'$' + coachProfile.amount}}
+         </span>
+        </p>
+       </div>
+      <div>
+        <button class="btn">
+          Upload Video
+        </button>
+        <input type="file" name="myfile" (change)="videoUpload($event)" #uploadVideo accept="video/mp4,video/x-m4v,video/*" />
+      </div>
+    </div>
+    <div class="w-50">
+      <h2 class="rtc-title">
+        About
+      </h2>
+      <p class="about">
+        {{coachProfile?.about}}
+      </p>
+      <p class="note">
+        <b>NOTE: </b>To get started on the program, click Order Now and upload a short video clip introducing yourself and your objectives for the program, and one of our elite coaches will respond with further instructions
+      </p>
+      <div class="stats">
+        <span>
+          Years of Experience :
+        </span>
+        <span>
+          <b>{{coachProfile?.years_of_coaching || 'none'}}</b>
+        </span>
+      </div>
+      <div class="stats">
+        <span>
+          Favourite Team :
+        </span>
+        <span>
+          <b>{{(coachProfile?.fav_team | titlecase) || 'none'}}</b>
+        </span>
+      </div>
+      <div class="stats">
+        <span>
+          Position :
+        </span>
+        <span>
+          <b>{{(coachProfile?.position | titlecase) || 'none'}}</b>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

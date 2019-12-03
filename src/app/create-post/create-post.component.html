@@ -1,0 +1,59 @@
+<div class="videoContent">
+  <div class="container-fluid">
+    <div class="content-wrapper">
+      <div class="row" *ngIf="videoURL?.length > 0">
+        <div class="col-md-8 full-sm col-sm-8 col-xs-12">
+          <div class="card max-height-vid">
+            <vg-player>
+              <vg-overlay-play class="play-pause-btn"></vg-overlay-play>
+              <vg-buffering></vg-buffering>
+              <vg-scrub-bar>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+              </vg-scrub-bar>
+              <vg-controls [vgAutohide]="true" [vgAutohideTime]="0.8">
+                <vg-play-pause></vg-play-pause>
+                <vg-playback-button></vg-playback-button>
+                <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+                <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+                <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                <vg-track-selector></vg-track-selector>
+                <vg-mute></vg-mute>
+                <vg-volume></vg-volume>
+                <vg-fullscreen></vg-fullscreen>
+              </vg-controls>
+              <video [vgMedia]="media" #media id="singleVideo" preload="auto" src={{videoURL[1]}} crossorigin>
+              </video>
+            </vg-player>
+          </div>
+        </div>
+        <div class="col-md-4 full-sm col-sm-4 col-xs-12">
+          <div class="describe-video">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="rtc-title">describe your video</h6>
+                <input [(ngModel)]="title" name="title" placeholder="Add Title" type="text" class="form-control">
+                <textarea [(ngModel)]="desc" name="description" placeholder="Please describe the actions,skills or scenario in the video that you would like feedback on from on your elite coach - be specific. Example : “ Hello coach, I’d love to get some feedback on how I can improve my (shooting,dribbling,passing,movement, agility,etc…) I am the player in the red jersey, #10 in this video. Thanks much!"></textarea>
+                <button class="btn" [disabled]="disableSubmit" (click)="createPost()">
+                  SUBMIT VIDEO
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 loader" *ngIf="videoURL?.length < 0 || !videoURL && videoData.showPercent">
+        <div class="display-table w-100">
+          <div class="display-table-cell">
+            <div class="count">
+              <circle-progress [percent]="videoData.uploadPercent" [radius]="60" [outerStrokeWidth]="10" [innerStrokeWidth]="0" [outerStrokeColor]="'#78C000'"
+                [innerStrokeColor]="'#C7E596'" [animation]="false" [titleFontSize]="30" [titleColor]="'#fff'" [subtitleFontSize]="20"
+                [subtitleColor]="'#fff'" [unitsFontSize]="18" [unitsColor]="'#fff'" [animationDuration]="0"></circle-progress>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
